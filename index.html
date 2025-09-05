@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Extra Clean – Productos de Limpieza</title>
+  <meta name="description" content="Tienda demo de Extra Clean: detergentes, desinfectantes, jabones y suavizantes biodegradables." />
+  <style>
+    .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+    :root{
+      --bg:#13472d;
+      --panel:#111827;
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --brand:#22c55e;
+      --brand-600:#16a34a;
+      --card:#0b1220;
+      --chip:#1f2937;
+      --border:#1f2937;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#0a0f1f, var(--bg));color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;z-index:10;background:rgba(15,23,42,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-img{width:50px;height:auto;object-fit:contain}
+    .brand h1{font-size:18px;margin:0}
+    .nav a.btn{padding:.55rem .9rem;border:1px solid var(--border);border-radius:12px;background:var(--chip)}
+    .cart{display:flex;align-items:center;gap:10px}
+    .cart-badge{min-width:26px;height:26px;border-radius:999px;background:var(--brand);color:#07110a;display:grid;place-items:center;font-weight:700}
+    .hero{padding:48px 0 24px}
+    .hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    @media (max-width:900px){.hero-inner{grid-template-columns:1fr}}
+    .tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:var(--chip);border:1px solid var(--border);color:var(--muted);font-size:.85rem}
+    .hero h2{font-size:clamp(26px,3.2vw,40px);margin:.6rem 0}
+    .hero p{color:var(--muted);max-width:60ch}
+    .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .btn-primary{background:var(--brand);color:#031307;border:none;padding:.8rem 1rem;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn-primary:hover{background:var(--brand-600)}
+    .btn-ghost{background:transparent;border:1px solid var(--border);padding:.8rem 1rem;border-radius:12px;color:var(--text);cursor:pointer}
+    .products{padding:8px 0 40px}
+    .section-head{display:flex;justify-content:space-between;align-items:center;margin:10px 0 14px}
+    .section-head h3{margin:0;font-size:22px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    @media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:460px){.grid{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg, #0c1426, #0a0f1f);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+    .thumb{aspect-ratio:4/3;background:#071220;display:grid;place-items:center;border-bottom:1px solid var(--border)}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .card-body{padding:14px;display:flex;flex-direction:column;gap:6px}
+    .price{font-weight:800}
+    .pill{font-size:.75rem;color:var(--muted)}
+    .card .actions{margin-top:auto;display:flex;gap:8px}
+    .about,.contact{padding:36px 0}
+    .panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}
+    .panel h3{margin-top:0}
+    footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font-size:.95rem}
+    /* Modal */
+    dialog{border:none;border-radius:16px;padding:0;background:#0a0f1f;color:var(--text);width:min(520px,92vw)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--border)}
+    .modal-body{padding:16px}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid var(--border);padding:10px;text-align:left}
+    .table th{color:var(--muted);font-weight:600}
+    .right{text-align:right}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="img/logo.png" alt="Logo Extra Clean" class="logo-img" width="150
+        "> 
+        <h1>Extra Clean <span class="tag">S.C.A.</span></h1>
+      </div>
+      <nav class="cart">
+        <a href="#productos" class="btn">Productos</a>
+        <a href="#nosotros" class="btn">Nosotros</a>
+        <a href="#contacto" class="btn">Contacto</a>
+        <a href="#" id="openCart" class="btn" aria-label="Abrir carrito">🛒</a>
+        <div class="cart-badge" id="cartCount" aria-live="polite">0</div>
+      </nav>
+    </div>
+  </header>
+
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="tag">Limpieza que cuida tu hogar y el medio ambiente</span>
+          <h2>Productos de limpieza <em>biodegradables</em> para hogares e instituciones</h2>
+          <p>Importamos y distribuimos detergentes, desinfectantes, jabones y suavizantes con fórmulas de alto rendimiento y menor impacto ambiental.</p>
+          <div class="cta">
+            <a class="btn-primary" href="#productos">Ver catálogo</a>
+            <button class="btn-ghost" id="scrollContact">Solicitar cotización</button>
+          </div>
+          <p class="pill">Domicilio: Ruta Militar, Colonia Roosevelt, San Miguel · Tel. (503) 7000-0000 · extraclean@gmail.com</p>
+        </div>
+        <div class="panel">
+          <h3>¿Por qué elegirnos?</h3>
+          <ul>
+            <li>Fórmulas biodegradables y eficaces</li>
+            <li>Distribución rápida en San Miguel y alrededores</li>
+            <li>Atención a empresas, escuelas y hospitales</li>
+            <li>Precios competitivos por volumen</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📦 Catálogo -->
+    <section id="productos" class="products">
+      <div class="container">
+        <div class="section-head">
+          <h3>Catálogo</h3>
+          <span class="pill">Agrega productos al carrito para tu pedido</span>
+        </div>
+
+        <!-- 🏠 Hogar -->
+        <h4>Hogar</h4>
+        <div class="grid">
+          <article class="card" data-sku="HOG-01" data-name="EcoHogar Multiusos Biodegradable 1L" data-price="4.50" data-img="img\Multiuso.png" data-details="Fórmula biodegradable|Aroma fresco|Contenido 1L">
+            <div class="thumb"><img src="img/Multiuso.png"></div>
+            <div class="card-body">
+              <h4>EcoHogar Multiusos Biodegradable 1L</h4>
+              <p class="pill">Para pisos y superficies generales</p>
+              <strong class="price">$4.50</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+        
+            </div>
+          </article>
+
+          <article class="card" data-sku="HOG-02" data-name="BioAroma Spray Lavanda 500ml" data-price="3.75" data-img="img\aromafresh.png" data-details="Perfume lavanda|Elimina olores|Contenido 500ml">
+            <div class="thumb"><img src="img/aromafresh.png" alt=""></div>
+            <div class="card-body">
+              <h4>BioAroma Spray Lavanda 500ml</h4>
+              <p class="pill">Elimina olores y perfuma con lavanda</p>
+              <strong class="price">$3.75</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+
+          <article class="card" data-sku="HOG-03" data-name="EcoClean Limpiavidrios 750ml" data-price="5.00" data-img="img\ecoclean750ml" data-details="Brillo sin marcas|Secado rápido|Contenido 750ml">
+            <div class="thumb"><img src="img/ecoclean750ml.png" alt=""></div>
+            <div class="card-body">
+              <h4>EcoClean Limpiavidrios 750ml</h4>
+              <p class="pill">Brillo sin marcas</p>
+              <strong class="price">$5.00</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 🚿 Baño -->
+        <h4>Baño</h4>
+        <div class="grid">
+          <article class="card" data-sku="BAN-01" data-name="PowerClean Antisarro 500ml" data-price="4.25" data-img="img\powercleean.png" data-details="Elimina sarro|Uso en azulejos e inodoros|Contenido 500ml">
+            <div class="thumb"><img src="img/powercleean.png" alt=""></div>
+            <div class="card-body">
+              <h4>PowerClean Antisarro 500ml</h4>
+              <p class="pill">Elimina sarro y manchas difíciles</p>
+              <strong class="price">$4.25</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+
+          <article class="card" data-sku="BAN-02" data-name="Mr. Fresh Gel WC 750ml" data-price="3.90" data-img="img\freshgel.png" data-details="Limpieza profunda|Aroma fresco|Contenido 750ml">
+            <div class="thumb"><img src="img/freshgel.png" alt=""></div>
+            <div class="card-body">
+              <h4>Mr. Fresh Gel WC 750ml</h4>
+              <p class="pill">Limpieza profunda para inodoros</p>
+              <strong class="price">$3.90</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+
+          <article class="card" data-sku="BAN-03" data-name="Ultra Shine Limpiador de Azulejos 1L" data-price="5.20" data-img="img\ultrashine.png" data-details="Remueve moho|Protección contra hongos|Contenido 1L">
+            <div class="thumb"><img src="img/ultrashine.png" alt=""></div>
+            <div class="card-body">
+              <h4>Ultra Shine Limpiador de Azulejos 1L</h4>
+              <p class="pill">Remueve moho y hongos</p>
+              <strong class="price">$5.20</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 🍳 Cocina -->
+        <h4>Cocina</h4>
+        <div class="grid">
+          <article class="card" data-sku="COC-01" data-name="Desengrasante ProCocina 1L" data-price="6.00" data-img="img\prococina.png" data-details="Contra grasa difícil|Uso en estufas y hornos|Contenido 1L">
+            <div class="thumb"><img src="img/prococina.png"alt=""></div>
+            <div class="card-body">
+              <h4>Desengrasante ProCocina 1L</h4>
+              <p class="pill">Contra grasa en estufas y hornos</p>
+              <strong class="price">$6.00</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+
+          <article class="card" data-sku="COC-02" data-name="DishPro Detergente Líquido 900ml" data-price="3.50" data-img="img\dishpro.png" data-details="Poder anti-grasa|Rinde más lavadas|Contenido 900ml">
+            <div class="thumb"><img src="img/dishpro.png" alt=""></div>
+            <div class="card-body">
+              <h4>DishPro Detergente Líquido 900ml</h4>
+              <p class="pill">Poder anti-grasa</p>
+              <strong class="price">$3.50</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+
+          <article class="card" data-sku="COC-03" data-name="SteelBright Inox 500ml" data-price="6.25" data-img="img\steel.png" data-details="Especial para acero inoxidable|Brillo duradero|Contenido 500ml">
+            <div class="thumb"><img src="img/steel.png" alt=""></div>
+            <div class="card-body">
+              <h4>SteelBright Inox 500ml</h4>
+              <p class="pill">Limpieza para acero inoxidable</p>
+              <strong class="price">$6.25</strong>
+              <div class="actions"><button class="btn-primary add">Agregar</button><button class="btn-ghost info">Detalles</button></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+ <section id="mayoristas" class="about">
+  <div class="container">
+    <div class="panel">
+      <h3>Mayoristas, Instituciones y Empresas</h3>
+      <p>
+        Ofrecemos presentaciones industriales y galones de nuestros productos de limpieza, ideales para 
+        <strong>hospitales, escuelas, restaurantes y empresas</strong>. 
+        Cotiza precios especiales por volumen.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="thumb"><img src="img/galon-desengrasante.png" alt="Galón de desengrasante"></div>
+          <div class="card-body">
+            <h4>Desengrasante Industrial 1 Galón</h4>
+            <p class="pill">Elimina grasa difícil en cocinas y talleres</p>
+            <strong class="price">$18.00</strong>
+            <div class="actions">
+              <button 
+                class="btn-primary add" 
+                data-name="Desengrasante Industrial 1 Galón" 
+                data-price="18.00">Agregar</button>
+              <button class="btn-ghost info">Detalles</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img src="img/galon-suavizante.png" alt="Galón de suavizante"></div>
+          <div class="card-body">
+            <h4>Suavizante Concentrado 1 Galón</h4>
+            <p class="pill">Rinde hasta 100 lavadas</p>
+            <strong class="price">$15.00</strong>
+            <div class="actions">
+              <button 
+                class="btn-primary add" 
+                data-name="Suavizante Concentrado 1 Galón" 
+                data-price="15.00">Agregar</button>
+              <button class="btn-ghost info">Detalles</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img src="img/galon-detergente.png" alt="Galón de detergente líquido"></div>
+          <div class="card-body">
+            <h4>Detergente Líquido 1 Galón</h4>
+            <p class="pill">Poder quitamanchas para ropa y textiles</p>
+            <strong class="price">$14.00</strong>
+            <div class="actions">
+              <button 
+                class="btn-primary add" 
+                data-name="Detergente Líquido 1 Galón" 
+                data-price="14.00">Agregar</button>
+              <button class="btn-ghost info">Detalles</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <a class="btn-primary" href="#contacto">Solicitar cotización mayorista</a>
+    </div>
+  </div>
+</section>
+
+    <!-- Nosotros -->
+    <section id="nosotros" class="about">
+      <div class="container">
+        <div class="panel">
+          <h3>Sobre Extra Clean</h3>
+          <p><strong>Extra Clean, Sociedad en Comandita por Acciones (S.C.A.)</strong>, se dedica a la importación y distribución de productos de limpieza: detergentes, desinfectantes, jabones, suavizantes y líneas biodegradables. Atendemos sector doméstico e institucional con enfoque en sostenibilidad y eficiencia logística.</p>
+          <ul>
+            <li><strong>Administración:</strong> a cargo de socios comanditados (gestión y representación legal).</li>
+            <li><strong>Enfoque:</strong> productos ecológicos y de alto rendimiento.</li>
+            <li><strong>Entrega:</strong> reparto en San Miguel y zonas aledañas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact">
+      <div class="container">
+        <div class="panel">
+          <h3>Contacto y Cotizaciones</h3>
+          <p>Dirección: Ruta Militar, Colonia Roosevelt, San Miguel · Tel. (503) 7000-0000 · Email: <a href="mailto:extraclean@gmail.com">extraclean@gmail.com</a></p>
+          <form id="contactForm" onsubmit="event.preventDefault(); alert('¡Gracias! Te escribiremos pronto.'); this.reset();">
+            <div style="display:grid;gap:12px;grid-template-columns:1fr 1fr;">
+              <label>Nombre<br><input required name="nombre" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0b1220;color:var(--text)"></label>
+              <label>Correo<br><input type="email" required name="correo" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0b1220;color:var(--text)"></label>
+            </div>
+            <label style="display:block;margin-top:12px;">Mensaje<br>
+              <textarea required name="mensaje" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0b1220;color:var(--text)"></textarea>
+            </label>
+            <div style="margin-top:12px;display:flex;gap:10px;">
+              <a class="btn-ghost" href="https://wa.me/50370000000?text=Hola%20quiero%20una%20cotización%20de%20productos%20por%20mayoreo" target="_blank">  Solicitar cotización</a>
+              <button class="btn-ghost" type="reset">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Extra Clean · NIT 0614-250894-102-3 · "Este sitio es una demo académica para parcial"
+    </div>
+  </footer>
+
+  <!-- Modal Carrito -->
+  <dialog id="cartModal">
+    <div class="modal-head">
+      <strong>Carrito de pedido</strong>
+      <button class="btn-ghost" id="closeCart" aria-label="Cerrar carrito">Cerrar</button>
+    </div>
+    <div class="modal-body">
+      <table class="table" id="cartTable">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cant.</th>
+            <th class="right">Precio</th>
+            <th class="right">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <th colspan="3" class="right">Total</th>
+            <th class="right" id="cartTotal">$0.00</th>
+          </tr>
+        </tfoot>
+      </table>
+      <div style="margin-top:12px;display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-ghost" id="clearCart">Vaciar</button>
+        <button class="btn-primary" id="checkout">Finalizar pedido</button>
+
+        <!DOCTYPE html>
+      </div>
+    </div>
+  </dialog>
+
+
+  <!-- Modal Detalles -->
+  <dialog id="detailsModal">
+    <div class="modal-head">
+      <strong id="detailsTitle"></strong>
+      <button class="btn-ghost" id="closeDetails">Cerrar</button>
+    </div>
+    <div class="modal-body">
+      <img id="detailsImg" src="" alt="" style="max-width:100%;border-radius:12px;margin-bottom:12px;">
+      <p id="detailsPrice"></p>
+      <ul id="detailsList"></ul>
+    </div>
+  </dialog>
+
+    ...
+  <!-- 👆 Aquí van todas tus secciones: catálogo, mayoristas, nosotros, contacto, etc. -->
+
+  <!-- Script del carrito -->
+  <script>
+    let cart = [];
+
+    document.querySelectorAll('.add').forEach(button => {
+      button.addEventListener('click', () => {
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
+
+        addToCart(name, price);
+      });
+    });
+
+    function addToCart(name, price) {
+      const item = cart.find(product => product.name === name);
+      if (item) {
+        item.quantity++;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartTable = document.querySelector('#cart-items'); // tbody de la tabla
+      const totalElement = document.querySelector('#cart-total');
+      cartTable.innerHTML = '';
+
+      let total = 0;
+      cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>$${subtotal.toFixed(2)}</td>
+        `;
+        cartTable.appendChild(row);
+      });
+
+      totalElement.textContent = `$${total.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
+
+
+
